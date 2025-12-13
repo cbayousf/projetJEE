@@ -8,6 +8,7 @@ import NotificationBadge from './components/notifications/NotificationBadge';
 import RendezVousList from './components/rendezvous/RendezVousList';
 import RendezVousForm from './components/rendezvous/RendezVousForm';
 import ConsultationForm from './components/consultations/ConsultationForm';
+import ConsultationList from './components/consultations/ConsultationList';
 import './App.css';
 
 function App() {
@@ -51,7 +52,14 @@ function App() {
             <Route path="/" element={<Navigate to="/rendezvous" />} />
             <Route path="/rendezvous" element={<RendezVousList />} />
             <Route path="/rendezvous/nouveau" element={<RendezVousForm />} />
-            <Route path="/consultations/nouveau" element={<ConsultationForm />} />
+              {/*/!* Route pour afficher la liste des consultations *!/*/}
+              {/*<Route path="/consultations" element={<ConsultationList />} />*/}
+
+              {/*<Route path="/consultations/nouveau" element={<ConsultationForm />} />*/}
+
+              <Route path="/consultations" element={<ConsultationList />} />
+              <Route path="/consultations/nouveau" element={<ConsultationForm />} />
+              <Route path="/consultations/:id/edit" element={<ConsultationForm />} />
             <Route path="/factures" element={<FactureList />} />
             <Route path="/factures/nouveau" element={<FactureForm />} />
             <Route path="/statistiques" element={<StatistiquesFactures />} />
