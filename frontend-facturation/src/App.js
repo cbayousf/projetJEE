@@ -9,6 +9,10 @@ import RendezVousList from './components/rendezvous/RendezVousList';
 import RendezVousForm from './components/rendezvous/RendezVousForm';
 import ConsultationForm from './components/consultations/ConsultationForm';
 import ConsultationList from './components/consultations/ConsultationList';
+
+import OrdonnanceList from './components/ordonnances/OrdonnanceList';
+import OrdonnanceForm from './components/ordonnances/OrdonnanceForm';
+import OrdonnanceDetail from './components/ordonnances/OrdonnanceDetail';
 import './App.css';
 
 function App() {
@@ -33,7 +37,8 @@ function App() {
             <Link to="/consultations" className="nav-link">
               Consultations
             </Link>
-            <Link to="/factures" className="nav-link">
+              <Link to="/ordonnances" className="nav-link">Ordonnances</Link>
+              <Link to="/factures" className="nav-link">
               Factures
             </Link>
             <Link to="/statistiques" className="nav-link">
@@ -56,6 +61,11 @@ function App() {
               {/*<Route path="/consultations" element={<ConsultationList />} />*/}
 
               {/*<Route path="/consultations/nouveau" element={<ConsultationForm />} />*/}
+
+              <Route path="/ordonnances" element={<OrdonnanceList />} />
+              <Route path="/ordonnances/nouveau" element={<OrdonnanceForm />} />
+              <Route path="/ordonnances/:id/edit" element={<OrdonnanceForm />} />
+              <Route path="/ordonnances/:id" element={<OrdonnanceDetail />} />
 
               <Route path="/consultations" element={<ConsultationList />} />
               <Route path="/consultations/nouveau" element={<ConsultationForm />} />
