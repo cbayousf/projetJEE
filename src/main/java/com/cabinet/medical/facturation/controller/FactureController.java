@@ -4,9 +4,12 @@ import com.cabinet.medical.facturation.dto.FactureDTO;
 import com.cabinet.medical.facturation.dto.StatistiquesDTO;
 import com.cabinet.medical.facturation.entity.StatutPaiementEnum;
 import com.cabinet.medical.facturation.service.FactureService;
+import com.cabinet.medical.facturation.service.FacturePdfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +22,12 @@ import java.util.List;
 public class FactureController {
 
     private final FactureService factureService;
+    private final FacturePdfService pdfService;
 
     @Autowired
-    public FactureController(FactureService factureService) {
+    public FactureController(FactureService factureService, FacturePdfService pdfService) {
         this.factureService = factureService;
+        this.pdfService = pdfService;
     }
 
     @PostMapping
@@ -63,6 +68,13 @@ public class FactureController {
         return ResponseEntity.ok(factures);
     }
 
+    // ✅ CORRECTION: Endpoint pour valider paiement (PATCH au lieu de PUT)
+    @PatchMapping("/{id}/valider")
+    public ResponseEntity<FactureDTO> validerPaiement(@PathVariable Long id) {
+        FactureDTO updated = factureService.updateFactureStatut(id, StatutPaiementEnum.PAYE);
+        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    }
+
     @PutMapping("/{id}/statut")
     public ResponseEntity<FactureDTO> updateStatut(@PathVariable Long id, 
                                                   @RequestParam StatutPaiementEnum statut) {
@@ -87,5 +99,21 @@ public class FactureController {
     public ResponseEntity<StatistiquesDTO> getStatistiques() {
         StatistiquesDTO statistiques = factureService.getStatistiques();
         return ResponseEntity.ok(statistiques);
+    }
+
+    // ✅ NOUVEAU: Endpoint pour générer le PDF
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable Long id) {
+        try {
+            byte[] pdfBytes = pdfService.generatePdf(id);
+            
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.TEXT_HTML);
+            headers.setContentDispositionFormData("filename", "facture_" + id + ".html");
+            
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

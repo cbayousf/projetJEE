@@ -1,0 +1,656 @@
+/* ========================================
+   CONTENEUR PRINCIPAL AVEC IMAGE DE FOND
+   ======================================== */
+.login-wrapper-pro {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  
+  /* Image de fond médicale */
+  background-image: url('https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Alternative avec image locale (téléchargez une image dans public/images/) */
+/* 
+.login-wrapper-pro {
+  background-image: url('/images/medical-background.jpg');
+}
+*/
+
+/* Overlay sombre pour rendre le texte lisible */
+.login-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(26, 188, 156, 0.85) 0%, 
+    rgba(52, 152, 219, 0.85) 50%, 
+    rgba(41, 128, 185, 0.9) 100%
+  );
+  z-index: 1;
+}
+
+/* ========================================
+   ÉLÉMENTS FLOTTANTS DÉCORATIFS
+   ======================================== */
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.float-elem {
+  position: absolute;
+  font-size: 60px;
+  color: rgba(255, 255, 255, 0.1);
+  animation: float-animation 15s infinite ease-in-out;
+}
+
+@keyframes float-animation {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-30px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(-60px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-30px) rotate(3deg);
+  }
+}
+
+/* ========================================
+   CONTENEUR DE LA CARTE DE LOGIN
+   ======================================== */
+.login-container-pro {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+  animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   CARTE DE LOGIN PRINCIPALE
+   ======================================== */
+.login-card-pro {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.login-card-pro:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   EN-TÊTE AVEC LOGO MÉDICAL
+   ======================================== */
+.login-header-pro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-medical {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
+  border-radius: 50%;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+  animation: pulse 2s infinite;
+  position: relative;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(52, 152, 219, 0.5);
+  }
+}
+
+.logo-cross {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.cross-vertical,
+.cross-horizontal {
+  position: absolute;
+  background: white;
+}
+
+.cross-vertical {
+  width: 8px;
+  height: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.cross-horizontal {
+  width: 40px;
+  height: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 4px;
+}
+
+.login-header-pro h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.subtitle-pro {
+  font-size: 15px;
+  color: #7f8c8d;
+  margin: 0 0 20px 0;
+  font-weight: 500;
+}
+
+.header-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #1abc9c, #3498db);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* ========================================
+   FORMULAIRE
+   ======================================== */
+.login-form-pro {
+  margin-bottom: 30px;
+}
+
+.form-group-pro {
+  margin-bottom: 24px;
+}
+
+.form-group-pro label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.label-icon {
+  font-size: 18px;
+}
+
+.input-pro {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e0e6ed;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.input-pro:focus {
+  outline: none;
+  border-color: #3498db;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+  transform: translateY(-2px);
+}
+
+.input-pro::placeholder {
+  color: #95a5a6;
+}
+
+/* ========================================
+   BOUTON DE CONNEXION
+   ======================================== */
+.btn-login-pro {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login-pro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-login-pro:hover::before {
+  left: 100%;
+}
+
+.btn-login-pro:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(52, 152, 219, 0.4);
+}
+
+.btn-login-pro:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn-login-pro:disabled {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.arrow-icon {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.btn-login-pro:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+/* Spinner de chargement */
+.spinner-pro {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   MESSAGES D'ERREUR ET SUCCÈS
+   ======================================== */
+.error-message-pro {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  animation: shake 0.5s;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.error-icon {
+  font-size: 22px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.success-message-pro {
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  animation: slideInDown 0.5s;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.success-icon {
+  font-size: 22px;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   LIEN MOT DE PASSE OUBLIÉ
+   ======================================== */
+.forgot-password-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+.link-button:hover {
+  color: #2980b9;
+  background: rgba(52, 152, 219, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   FORMULAIRE MOT DE PASSE OUBLIÉ
+   ======================================== */
+.forgot-password-form {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #3498db;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-button:hover {
+  color: #2980b9;
+  transform: translateX(-5px);
+}
+
+.forgot-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.forgot-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+.forgot-header h2 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+}
+
+.forgot-header p {
+  color: #7f8c8d;
+  font-size: 15px;
+  margin: 0;
+}
+
+.btn-reset-pro {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+}
+
+.btn-reset-pro:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(230, 126, 34, 0.4);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.login-footer-pro {
+  text-align: center;
+  padding-top: 25px;
+  border-top: 1px solid #e0e6ed;
+}
+
+.login-footer-pro p {
+  color: #95a5a6;
+  font-size: 13px;
+  margin: 0 0 15px 0;
+}
+
+.security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(39, 174, 96, 0.1);
+  border-radius: 20px;
+  color: #27ae60;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lock-icon {
+  font-size: 16px;
+}
+
+/* ========================================
+   CARTES INFORMATIVES
+   ======================================== */
+.info-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.info-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 20px 15px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.info-icon {
+  font-size: 32px;
+}
+
+.info-card span:last-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .login-container-pro {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .login-card-pro {
+    padding: 35px 25px;
+  }
+
+  .login-header-pro h1 {
+    font-size: 26px;
+  }
+
+  .logo-medical {
+    width: 70px;
+    height: 70px;
+  }
+
+  .btn-login-pro {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .info-cards {
+    flex-direction: column;
+  }
+
+  .floating-elements {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card-pro {
+    padding: 30px 20px;
+  }
+
+  .login-header-pro h1 {
+    font-size: 24px;
+  }
+
+  .subtitle-pro {
+    font-size: 14px;
+  }
+
+  .input-pro {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+}
+/* Lien "Mot de passe oublié" */
+.forgot-password-link {
+  text-align: right;
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+
+.link-forgot {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.link-forgot::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #667eea;
+  transition: width 0.3s ease;
+}
+
+.link-forgot:hover {
+  color: #5568d3;
+}
+
+.link-forgot:hover::after {
+  width: 100%;
+}
+
+/* Animation au focus pour l'accessibilité */
+.link-forgot:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
