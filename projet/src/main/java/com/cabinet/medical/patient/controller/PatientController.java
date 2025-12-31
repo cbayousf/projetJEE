@@ -1,12 +1,14 @@
 package com.cabinet.medical.patient.controller;
 
 import com.cabinet.medical.patient.dto.PatientDTO;
+import com.cabinet.medical.patient.dto.PatientStatsDTO;
 import com.cabinet.medical.patient.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/patients")
@@ -36,6 +38,21 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<PatientDTO>> searchPatients(
+            @RequestParam(required = false) String cin,
+            @RequestParam(required = false) String nom) {
+        List<PatientDTO> patients = patientService.searchPatients(cin, nom);
+        return ResponseEntity.ok(patients);
+    }
+
+    // ✅ NOUVEAU: Endpoint pour les statistiques
+    @GetMapping("/stats")
+    public ResponseEntity<PatientStatsDTO> getPatientStats() {
+        PatientStatsDTO stats = patientService.getPatientStats();
+        return ResponseEntity.ok(stats);
+    }
+
     @PostMapping
     public ResponseEntity<PatientDTO> createPatient(@RequestBody PatientDTO patientDTO) {
         try {
@@ -47,7 +64,9 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientDTO> updatePatient(@PathVariable Long id, @RequestBody PatientDTO patientDTO) {
+    public ResponseEntity<PatientDTO> updatePatient(
+            @PathVariable Long id, 
+            @RequestBody PatientDTO patientDTO) {
         try {
             PatientDTO updatedPatient = patientService.updatePatient(id, patientDTO);
             return ResponseEntity.ok(updatedPatient);

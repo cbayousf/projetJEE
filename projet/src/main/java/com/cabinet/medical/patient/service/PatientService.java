@@ -1,11 +1,13 @@
 package com.cabinet.medical.patient.service;
 
 import com.cabinet.medical.patient.dto.PatientDTO;
+import com.cabinet.medical.patient.dto.PatientStatsDTO;
 import com.cabinet.medical.patient.entity.Patient;
 import com.cabinet.medical.patient.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,53 @@ public class PatientService {
 
     public Optional<PatientDTO> getPatientByCin(String cin) {
         return patientRepository.findByCin(cin).map(this::convertToDTO);
+    }
+
+    public List<PatientDTO> searchPatients(String cin, String nom) {
+        if (cin != null && !cin.trim().isEmpty()) {
+            return patientRepository.findByCin(cin)
+                    .map(this::convertToDTO)
+                    .map(List::of)
+                    .orElse(List.of());
+        }
+        
+        if (nom != null && !nom.trim().isEmpty()) {
+            return patientRepository.findAll().stream()
+                    .filter(p -> p.getNom().toLowerCase().contains(nom.toLowerCase()) ||
+                               p.getPrenom().toLowerCase().contains(nom.toLowerCase()))
+                    .map(this::convertToDTO)
+                    .collect(Collectors.toList());
+        }
+        
+        return getAllPatients();
+    }
+
+    public PatientStatsDTO getPatientStats() {
+        List<Patient> allPatients = patientRepository.findAll();
+        
+        long total = allPatients.size();
+        
+        // Patients créés ce mois
+        LocalDateTime debutMois = LocalDateTime.now().withDayOfMonth(1).withHour(0).withMinute(0).withSecond(0);
+        long nouveauxMois = allPatients.stream()
+                .filter(p -> p.getDateCreation() != null && p.getDateCreation().isAfter(debutMois))
+                .count();
+        
+        // Répartition par sexe
+        long hommes = allPatients.stream()
+                .filter(p -> "M".equals(p.getSexe()))
+                .count();
+        
+        long femmes = allPatients.stream()
+                .filter(p -> "F".equals(p.getSexe()))
+                .count();
+        
+        return PatientStatsDTO.builder()
+                .totalPatients(total)
+                .nouveauxPatientsMois(nouveauxMois)
+                .patientsHommes(hommes)
+                .patientsFemmes(femmes)
+                .build();
     }
 
     public PatientDTO createPatient(PatientDTO dto) {
@@ -87,21 +136,13 @@ public class PatientService {
     }
 
     private void updateEntityFromDTO(Patient entity, PatientDTO dto) {
-        if (dto.getNom() != null)
-            entity.setNom(dto.getNom());
-        if (dto.getPrenom() != null)
-            entity.setPrenom(dto.getPrenom());
-        if (dto.getDateNaissance() != null)
-            entity.setDateNaissance(dto.getDateNaissance());
-        if (dto.getSexe() != null)
-            entity.setSexe(dto.getSexe());
-        if (dto.getNumTel() != null)
-            entity.setNumTel(dto.getNumTel());
-        if (dto.getEmail() != null)
-            entity.setEmail(dto.getEmail());
-        if (dto.getAdresse() != null)
-            entity.setAdresse(dto.getAdresse());
-        if (dto.getTypeMutuelle() != null)
-            entity.setTypeMutuelle(dto.getTypeMutuelle());
+        if (dto.getNom() != null) entity.setNom(dto.getNom());
+        if (dto.getPrenom() != null) entity.setPrenom(dto.getPrenom());
+        if (dto.getDateNaissance() != null) entity.setDateNaissance(dto.getDateNaissance());
+        if (dto.getSexe() != null) entity.setSexe(dto.getSexe());
+        if (dto.getNumTel() != null) entity.setNumTel(dto.getNumTel());
+        if (dto.getEmail() != null) entity.setEmail(dto.getEmail());
+        if (dto.getAdresse() != null) entity.setAdresse(dto.getAdresse());
+        if (dto.getTypeMutuelle() != null) entity.setTypeMutuelle(dto.getTypeMutuelle());
     }
 }

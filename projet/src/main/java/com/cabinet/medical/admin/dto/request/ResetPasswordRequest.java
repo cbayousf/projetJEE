@@ -1,5 +1,4 @@
-package com.cabinet.medical.dto.request;
-
+package com.cabinet.medical.admin.dto.request;
 
 import lombok.Data;
 

@@ -1,7 +1,6 @@
-package com.cabinet.medical.dto.request;
+package com.cabinet.medical.admin.dto.request;
 
-
-import com.cabinet.medical.enums.RoleEnum;
+import com.cabinet.medical.admin.enums.RoleEnum;
 import lombok.Data;
 
 @Data
@@ -12,5 +11,5 @@ public class UserRequest {
     private String prenom;
     private String numTel;
     private RoleEnum role;
-    private String signature; // Pour médecins seulement
+    private String signature;
 }

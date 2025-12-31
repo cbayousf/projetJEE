@@ -1,4 +1,4 @@
-package com.cabinet.medical.service;
+package com.cabinet.medical.admin.service;
 
 import com.cabinet.medical.admin.entity.Utilisateur;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ public class EmailService {
     public void sendPasswordResetEmail(Utilisateur utilisateur, String token) {
         String resetUrl = "http://localhost:3000/reset-password?token=" + token;
 
-        // Log pour le développement - IMPORTANT: Copiez ce token !
         log.info("=========================================");
         log.info("📧 EMAIL DE RÉINITIALISATION");
         log.info("=========================================");
@@ -26,13 +25,5 @@ public class EmailService {
         log.info("=========================================");
         log.info("⚠️  COPIEZ CE TOKEN POUR TESTER: {}", token);
         log.info("=========================================");
-
-        // TODO: En production, remplacer par un vrai envoi d'email
-        // Exemple avec JavaMail:
-        // SimpleMailMessage message = new SimpleMailMessage();
-        // message.setTo(utilisateur.getEmail());
-        // message.setSubject("Réinitialisation de votre mot de passe");
-        // message.setText("Cliquez sur ce lien: " + resetUrl);
-        // mailSender.send(message);
     }
 }

@@ -1,13 +1,12 @@
-package com.cabinet.medical.service;
+package com.cabinet.medical.admin.service;
 
-
-import com.cabinet.medical.dto.request.UserRequest;
-import com.cabinet.medical.entity.Administrateur;
-import com.cabinet.medical.entity.Medecin;
-import com.cabinet.medical.entity.Secretaire;
-import com.cabinet.medical.entity.Utilisateur;
-import com.cabinet.medical.enums.RoleEnum;
-import com.cabinet.medical.repository.UtilisateurRepository;
+import com.cabinet.medical.admin.dto.request.UserRequest;
+import com.cabinet.medical.admin.entity.Administrateur;
+import com.cabinet.medical.admin.entity.Medecin;
+import com.cabinet.medical.admin.entity.Secretaire;
+import com.cabinet.medical.admin.entity.Utilisateur;
+import com.cabinet.medical.admin.enums.RoleEnum;
+import com.cabinet.medical.admin.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +42,7 @@ public class UtilisateurService {
                         request.getNom(),
                         request.getPrenom(),
                         request.getNumTel(),
-                        request.getSignature()
-                );
+                        request.getSignature());
                 break;
             case SECRETAIRE:
                 user = new Secretaire(
@@ -52,8 +50,7 @@ public class UtilisateurService {
                         request.getPwd(),
                         request.getNom(),
                         request.getPrenom(),
-                        request.getNumTel()
-                );
+                        request.getNumTel());
                 break;
             case ADMINISTRATEUR:
                 user = new Administrateur(
@@ -61,8 +58,7 @@ public class UtilisateurService {
                         request.getPwd(),
                         request.getNom(),
                         request.getPrenom(),
-                        request.getNumTel()
-                );
+                        request.getNumTel());
                 break;
             default:
                 throw new RuntimeException("Rôle invalide");

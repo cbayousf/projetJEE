@@ -1,7 +1,7 @@
 package com.cabinet.medical.admin.repository;
 
-import com.cabinet.medical.entity.Utilisateur;
-import com.cabinet.medical.enums.RoleEnum;
+import com.cabinet.medical.admin.entity.Utilisateur;
+import com.cabinet.medical.admin.enums.RoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

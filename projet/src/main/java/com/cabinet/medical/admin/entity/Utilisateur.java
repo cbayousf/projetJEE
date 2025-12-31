@@ -1,6 +1,6 @@
 package com.cabinet.medical.admin.entity;
 
-import com.cabinet.medical.enums.RoleEnum;
+import com.cabinet.medical.admin.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

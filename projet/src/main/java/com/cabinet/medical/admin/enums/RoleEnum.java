@@ -1,4 +1,4 @@
-package com.cabinet.medical.enums;
+package com.cabinet.medical.admin.enums;
 
 public enum RoleEnum {
     MEDECIN,

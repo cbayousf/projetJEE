@@ -1,6 +1,4 @@
-package com.cabinet.medical.entity;
-
-
+package com.cabinet.medical.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

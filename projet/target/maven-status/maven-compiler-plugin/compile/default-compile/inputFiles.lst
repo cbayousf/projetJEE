@@ -58,6 +58,7 @@ C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\notification\service\NotificationService.java
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\controller\PatientController.java
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\dto\PatientDTO.java
+C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\dto\PatientStatsDTO.java
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\entity\Patient.java
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\repository\PatientRepository.java
 C:\Users\pc\Desktop\projetJEE_version2\projet\src\main\java\com\cabinet\medical\patient\service\PatientService.java
