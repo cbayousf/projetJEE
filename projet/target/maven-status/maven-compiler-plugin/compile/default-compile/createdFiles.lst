@@ -10,6 +10,7 @@ com\cabinet\medical\rendezvous\entity\Ordonnance.class
 com\cabinet\medical\admin\controller\AdminSpecialiteController.class
 com\cabinet\medical\rendezvous\dto\RendezVousDTO.class
 com\cabinet\medical\notification\dto\NotificationDTO.class
+com\cabinet\medical\document\repository\DocumentRepository.class
 com\cabinet\medical\admin\controller\AdminCabinetController.class
 com\cabinet\medical\rendezvous\entity\Consultation.class
 com\cabinet\medical\facturation\controller\FactureController.class
@@ -27,7 +28,9 @@ com\cabinet\medical\dossier\dto\DossierMedicalDTO.class
 com\cabinet\medical\admin\service\SpecialiteService.class
 com\cabinet\medical\admin\service\UtilisateurService$1.class
 com\cabinet\medical\admin\repository\SpecialiteRepository.class
+com\cabinet\medical\document\dto\DocumentDTO.class
 com\cabinet\medical\rendezvous\entity\RendezVous.class
+com\cabinet\medical\document\controller\DocumentController.class
 com\cabinet\medical\facturation\service\FacturePdfService.class
 com\cabinet\medical\rendezvous\dto\OrdonnanceDTO.class
 com\cabinet\medical\notification\entity\Notification.class
@@ -39,6 +42,7 @@ com\cabinet\medical\admin\entity\Cabinet.class
 com\cabinet\medical\patient\entity\Patient$PatientBuilder.class
 com\cabinet\medical\admin\controller\PasswordResetController.class
 com\cabinet\medical\patient\entity\Patient.class
+com\cabinet\medical\document\dto\DocumentDTO$DocumentDTOBuilder.class
 com\cabinet\medical\rendezvous\service\OrdonnanceService.class
 com\cabinet\medical\admin\entity\Secretaire.class
 com\cabinet\medical\facturation\repository\FactureRepository.class
@@ -67,9 +71,11 @@ com\cabinet\medical\patient\repository\PatientRepository.class
 com\cabinet\medical\rendezvous\controller\ConsultationController.class
 com\cabinet\medical\facturation\service\FactureService.class
 com\cabinet\medical\patient\dto\PatientStatsDTO.class
+com\cabinet\medical\document\entity\Document$DocumentBuilder.class
 com\cabinet\medical\patient\dto\PatientDTO.class
 com\cabinet\medical\admin\dto\request\CabinetRequest.class
 com\cabinet\medical\notification\repository\NotificationRepository.class
+com\cabinet\medical\document\service\DocumentService.class
 com\cabinet\medical\facturation\dto\FactureDTO.class
 com\cabinet\medical\admin\controller\AuthController.class
 com\cabinet\medical\dossier\entity\DossierMedical$DossierMedicalBuilder.class
@@ -79,6 +85,7 @@ com\cabinet\medical\rendezvous\entity\TypeOrdonnanceEnum.class
 com\cabinet\medical\admin\repository\MedicamentRepository.class
 com\cabinet\medical\admin\dto\request\ForgotPasswordRequest.class
 com\cabinet\medical\config\CorsConfig.class
+com\cabinet\medical\document\entity\Document.class
 com\cabinet\medical\patient\dto\PatientDTO$PatientDTOBuilder.class
 com\cabinet\medical\facturation\dto\StatistiquesDTO.class
 com\cabinet\medical\notification\controller\NotificationController.class

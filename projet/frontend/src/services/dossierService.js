@@ -1,27 +1,33 @@
 import api from './api';
 
 const dossierService = {
-    // Récupérer le dossier médical d'un patient
     getDossierByPatientId: async (patientId) => {
-        const response = await api.get(`/patients/${patientId}/dossier`);
-        return response.data;
+        const response = await api.get(`/dossiers/patient/${patientId}`);
+        return response.data.length > 0 ? response.data[0] : null;
     },
 
-    // Créer un dossier médical
     createDossier: async (patientId) => {
-        const response = await api.post(`/patients/${patientId}/dossier`);
+        const response = await api.post('/dossiers', { patientId });
         return response.data;
     },
 
-    // Mettre à jour le dossier médical
     updateDossier: async (patientId, dossierData) => {
-        const response = await api.put(`/patients/${patientId}/dossier`, dossierData);
+        // Trouver d'abord le dossier
+        const dossiers = await api.get(`/dossiers/patient/${patientId}`);
+        if (dossiers.data.length === 0) {
+            throw new Error('Dossier non trouvé');
+        }
+        
+        const dossierId = dossiers.data[0].id;
+        const response = await api.put(`/dossiers/${dossierId}`, {
+            ...dossierData,
+            patientId
+        });
         return response.data;
     },
 
-    // Récupérer l'historique des consultations
     getHistorique: async (patientId) => {
-        const response = await api.get(`/patients/${patientId}/dossier/historique`);
+        const response = await api.get(`/consultations/patient/${patientId}`);
         return response.data;
     },
 };

@@ -19,10 +19,10 @@ public abstract class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String login;
 
-    @Column(nullable = false)
+    @Column(name = "mot_de_passe", nullable = false)
     private String pwd;
 
     private String nom;

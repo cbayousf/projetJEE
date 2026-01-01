@@ -1,15 +1,14 @@
 import api from './api';
 
 const documentService = {
-    // Upload un document
     uploadDocument: async (patientId, file, description, uploadePar) => {
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('description', description);
-        formData.append('uploadePar', uploadePar);
+        if (description) formData.append('description', description);
+        if (uploadePar) formData.append('uploadePar', uploadePar);
 
         const response = await api.post(
-            `/patients/${patientId}/dossier/documents`,
+            `/documents/patients/${patientId}/upload`,
             formData,
             {
                 headers: {
@@ -20,13 +19,11 @@ const documentService = {
         return response.data;
     },
 
-    // Récupérer les documents d'un patient
     getDocumentsByPatient: async (patientId) => {
-        const response = await api.get(`/patients/${patientId}/dossier/documents`);
+        const response = await api.get(`/documents/patients/${patientId}`);
         return response.data;
     },
 
-    // Télécharger un document
     downloadDocument: async (documentId) => {
         const response = await api.get(`/documents/${documentId}/download`, {
             responseType: 'blob',
@@ -34,7 +31,6 @@ const documentService = {
         return response.data;
     },
 
-    // Supprimer un document
     deleteDocument: async (documentId) => {
         const response = await api.delete(`/documents/${documentId}`);
         return response.data;

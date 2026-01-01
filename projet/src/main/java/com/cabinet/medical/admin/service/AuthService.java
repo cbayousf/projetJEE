@@ -10,6 +10,7 @@ import com.cabinet.medical.admin.entity.Utilisateur;
 import com.cabinet.medical.admin.enums.RoleEnum;
 import com.cabinet.medical.admin.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,17 @@ public class AuthService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public LoginResponse login(LoginRequest request) {
         Utilisateur user = utilisateurRepository
-            .findByLoginAndPwd(request.getLogin(), request.getPassword())
-            .orElseThrow(() -> new RuntimeException("Login ou mot de passe incorrect"));
+                .findByLogin(request.getLogin())
+                .orElseThrow(() -> new RuntimeException("Login ou mot de passe incorrect"));
+
+        // Vérifier le mot de passe avec BCrypt
+        if (!passwordEncoder.matches(request.getPassword(), user.getPwd())) {
+            throw new RuntimeException("Login ou mot de passe incorrect");
+        }
 
         return new LoginResponse(
                 user.getId(),
@@ -44,34 +52,35 @@ public class AuthService {
         Utilisateur user;
         RoleEnum role = RoleEnum.valueOf(request.getRole());
 
+        // Hash the password
+        String hashedPassword = passwordEncoder.encode(request.getPassword());
+
         switch (role) {
             case MEDECIN:
                 user = new Medecin(
-                    request.getEmail(),
-                    request.getPassword(),
-                    request.getNom(),
-                    request.getPrenom(),
-                    request.getNumTel(),
-                    null // signature
+                        request.getEmail(),
+                        hashedPassword,
+                        request.getNom(),
+                        request.getPrenom(),
+                        request.getNumTel(),
+                        null // signature
                 );
                 break;
             case SECRETAIRE:
                 user = new Secretaire(
-                    request.getEmail(),
-                    request.getPassword(),
-                    request.getNom(),
-                    request.getPrenom(),
-                    request.getNumTel()
-                );
+                        request.getEmail(),
+                        hashedPassword,
+                        request.getNom(),
+                        request.getPrenom(),
+                        request.getNumTel());
                 break;
             case ADMINISTRATEUR:
                 user = new Administrateur(
-                    request.getEmail(),
-                    request.getPassword(),
-                    request.getNom(),
-                    request.getPrenom(),
-                    request.getNumTel()
-                );
+                        request.getEmail(),
+                        hashedPassword,
+                        request.getNom(),
+                        request.getPrenom(),
+                        request.getNumTel());
                 break;
             default:
                 throw new RuntimeException("Rôle invalide");
@@ -85,7 +94,6 @@ public class AuthService {
                 savedUser.getNom(),
                 savedUser.getPrenom(),
                 savedUser.getRole().name(),
-                "token-" + savedUser.getId()
-        );
+                "token-" + savedUser.getId());
     }
 }
