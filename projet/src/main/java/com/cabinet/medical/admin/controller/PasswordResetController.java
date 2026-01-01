@@ -1,12 +1,12 @@
-package com.cabinet.medical.controller;
+package com.cabinet.medical.admin.controller;
 
 
-import com.cabinet.medical.dto.request.ForgotPasswordRequest;
-import com.cabinet.medical.dto.request.ResetPasswordRequest;
+import com.cabinet.medical.admin.dto.request.ForgotPasswordRequest;
+import com.cabinet.medical.admin.dto.request.ResetPasswordRequest;
 import com.cabinet.medical.dto.response.MessageResponse;
-import com.cabinet.medical.entity.PasswordResetToken;
-import com.cabinet.medical.service.EmailService;
-import com.cabinet.medical.service.PasswordResetService;
+import com.cabinet.medical.admin.entity.PasswordResetToken;
+import com.cabinet.medical.admin.service.EmailService;
+import com.cabinet.medical.admin.service.PasswordResetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

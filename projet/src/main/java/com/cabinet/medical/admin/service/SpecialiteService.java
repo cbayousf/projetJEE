@@ -1,8 +1,8 @@
-package com.cabinet.medical.service;
+package com.cabinet.medical.admin.service;
 
 
-import com.cabinet.medical.entity.Specialite;
-import com.cabinet.medical.repository.SpecialiteRepository;
+import com.cabinet.medical.admin.entity.Specialite;
+import com.cabinet.medical.admin.repository.SpecialiteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

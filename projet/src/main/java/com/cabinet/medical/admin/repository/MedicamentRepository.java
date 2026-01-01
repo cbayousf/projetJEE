@@ -1,7 +1,7 @@
-package com.cabinet.medical.repository;
+package com.cabinet.medical.admin.repository;
 
 
-import com.cabinet.medical.entity.Medicament;
+import com.cabinet.medical.admin.entity.Medicament;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
 package com.cabinet.medical.dossier.entity;
 
 import com.cabinet.medical.patient.entity.Patient;
-import com.cabinet.medical.entity.Utilisateur;
+import com.cabinet.medical.admin.entity.Utilisateur;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

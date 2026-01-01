@@ -34,7 +34,6 @@ public class PasswordResetToken {
     @Column(nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
 
-    // Constructeur personnalisé
     public PasswordResetToken(String token, Utilisateur utilisateur, LocalDateTime expiryDate) {
         this.token = token;
         this.utilisateur = utilisateur;
@@ -43,8 +42,26 @@ public class PasswordResetToken {
         this.createdDate = LocalDateTime.now();
     }
 
-    // Méthode pour vérifier si le token est expiré
     public boolean isExpired() {
         return LocalDateTime.now().isAfter(this.expiryDate);
     }
+    
+    // Getters et Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
+    
+    public Utilisateur getUtilisateur() { return utilisateur; }
+    public void setUtilisateur(Utilisateur utilisateur) { this.utilisateur = utilisateur; }
+    
+    public LocalDateTime getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(LocalDateTime expiryDate) { this.expiryDate = expiryDate; }
+    
+    public Boolean getUsed() { return used; }
+    public void setUsed(Boolean used) { this.used = used; }
+    
+    public LocalDateTime getCreatedDate() { return createdDate; }
+    public void setCreatedDate(LocalDateTime createdDate) { this.createdDate = createdDate; }
 }

@@ -1,8 +1,8 @@
-package com.cabinet.medical.service;
+package com.cabinet.medical.admin.service;
 
-import com.cabinet.medical.entity.PasswordResetToken;
+import com.cabinet.medical.admin.entity.PasswordResetToken;
 import com.cabinet.medical.admin.entity.Utilisateur;
-import com.cabinet.medical.repository.PasswordResetTokenRepository;
+import com.cabinet.medical.admin.repository.PasswordResetTokenRepository;
 import com.cabinet.medical.admin.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

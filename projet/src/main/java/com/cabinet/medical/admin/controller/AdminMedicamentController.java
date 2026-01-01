@@ -1,8 +1,8 @@
-package com.cabinet.medical.controller;
+package com.cabinet.medical.admin.controller;
 
 
-import com.cabinet.medical.entity.Medicament;
-import com.cabinet.medical.service.MedicamentService;
+import com.cabinet.medical.admin.entity.Medicament;
+import com.cabinet.medical.admin.service.MedicamentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

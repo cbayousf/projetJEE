@@ -1,19 +1,11 @@
-# TODO: Fix Maven Compilation Errors
+# ESLint Warnings Fix TODO
 
-## Files to Fix
-- [x] AdminCabinetController.java: Fix package and imports
-- [x] CabinetService.java: Fix package and imports
-- [ ] AdminUserController.java: Fix package and imports
-- [ ] UtilisateurService.java: Fix package and imports
-- [ ] UtilisateurRepository.java: Fix imports
-- [x] PasswordResetController.java: Fix package and imports
-- [x] PasswordResetService.java: Fix package and imports
-- [ ] PasswordResetTokenRepository.java: Fix imports
-- [ ] Administrateur.java: Fix package and imports
-- [ ] Medecin.java: Fix package and imports
-- [ ] DossierMedical.java: Fix imports
-- [ ] Other files from search results if needed
-
-## Followup Steps
-- [ ] Run 'mvn clean compile' to verify fixes
-- [ ] Address any remaining errors
+- [x] Remove unused import 'DoctorDashboard' from App.js
+- [x] Remove unused import 'Avatar' from AdminDashboard.jsx
+- [x] Remove unused import 'Alert' from Register.jsx
+- [x] Fix unnecessary escape characters in regex in Register.jsx
+- [x] Remove unused 'userData' assignment in Register.jsx
+- [x] Remove unused import 'Paper' from SecretaryDashboard.jsx
+- [x] Fix useEffect dependency in PatientForm.jsx: add useCallback for loadPatient and include in deps
+- [ ] Fix useEffect dependency in PatientDetail.jsx: add useCallback for loadPatient and include in deps (PatientDetails.jsx is not implemented yet, no useEffect present)
+- [x] Run npm start to verify warnings are resolved

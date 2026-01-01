@@ -10,7 +10,6 @@ import Welcome from './pages/Welcome';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
-import DoctorDashboard from './pages/DoctorDashboard';
 import SecretaryDashboard from './pages/SecretaryDashboard';
 import Home from './pages/Home';
 import Patients from './pages/Patients';

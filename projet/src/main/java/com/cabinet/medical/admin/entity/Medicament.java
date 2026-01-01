@@ -1,5 +1,4 @@
-package com.cabinet.medical.entity;
-
+package com.cabinet.medical.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,4 +24,20 @@ public class Medicament {
 
     @Column(columnDefinition = "TEXT")
     private String indication;
+    
+    // Getters et Setters explicites
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+    
+    public String getDosage() { return dosage; }
+    public void setDosage(String dosage) { this.dosage = dosage; }
+    
+    public String getForme() { return forme; }
+    public void setForme(String forme) { this.forme = forme; }
+    
+    public String getIndication() { return indication; }
+    public void setIndication(String indication) { this.indication = indication; }
 }

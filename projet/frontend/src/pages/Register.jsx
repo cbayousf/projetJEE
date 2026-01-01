@@ -7,7 +7,6 @@ import {
     Button,
     Typography,
     Box,
-    Alert,
     FormControl,
     InputLabel,
     Select,
@@ -83,7 +82,7 @@ const Register = () => {
 
         if (!formData.numTel.trim()) {
             newErrors.numTel = 'Le numéro de téléphone est requis';
-        } else if (!/^\+?[0-9\s\-\(\)]{10,}$/.test(formData.numTel.replace(/\s/g, ''))) {
+        } else if (!/^\+?[0-9\s\-()]{10,}$/.test(formData.numTel.replace(/\s/g, ''))) {
             newErrors.numTel = 'Format de numéro de téléphone invalide';
         }
 
@@ -134,7 +133,6 @@ const Register = () => {
             });
 
             if (response.ok) {
-                const userData = await response.json();
                 toast.success('Inscription réussie ! Vous pouvez maintenant vous connecter.');
                 navigate('/login');
             } else {

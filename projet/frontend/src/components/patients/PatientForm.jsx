@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Container,
     Typography,
@@ -38,13 +38,7 @@ const PatientForm = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        if (isEditing) {
-            loadPatient();
-        }
-    }, [id, isEditing]);
-
-    const loadPatient = async () => {
+    const loadPatient = useCallback(async () => {
         try {
             setLoading(true);
             const patient = await patientService.getPatientById(id);
@@ -58,7 +52,13 @@ const PatientForm = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        if (isEditing) {
+            loadPatient();
+        }
+    }, [isEditing, loadPatient]);
 
     const handleChange = (field) => (event) => {
         setFormData({

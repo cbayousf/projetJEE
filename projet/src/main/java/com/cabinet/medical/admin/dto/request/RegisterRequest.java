@@ -10,4 +10,10 @@ public class RegisterRequest {
     private String numTel;
     private String password;
     private String role;
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+    public String getNom() { return nom; }
+    public String getPrenom() { return prenom; }
+    public String getNumTel() { return numTel; }
+    public String getRole() { return role; }
 }
