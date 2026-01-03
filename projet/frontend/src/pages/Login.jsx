@@ -6,18 +6,29 @@ const Login = ({ onLogin }) => {
     const navigate = useNavigate();
 
     const handleLoginSuccess = (user) => {
-        // Update the user state in App.js
+        console.log('✅ Login réussi:', user);
+        
+        // Mettre à jour l'état dans App.js
         if (onLogin) {
             onLogin(user);
         }
 
-        // Navigate based on role
+        // Sauvegarder dans localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', user.token);
+
+        // Navigation basée sur le rôle
+        console.log('🔄 Navigation vers le dashboard pour le rôle:', user.role);
+        
         if (user.role === 'ADMINISTRATEUR' || user.role === 'ADMIN') {
             navigate('/admin/dashboard');
         } else if (user.role === 'MEDECIN') {
-            navigate('/doctor/patients');
+            navigate('/doctor/home');
         } else if (user.role === 'SECRETAIRE') {
             navigate('/secretary/dashboard');
+        } else {
+            console.error('❌ Rôle inconnu:', user.role);
+            navigate('/');
         }
     };
 

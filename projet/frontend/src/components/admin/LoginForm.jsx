@@ -9,7 +9,8 @@ import {
     Box,
     Alert,
     InputAdornment,
-    IconButton
+    IconButton,
+    CircularProgress
 } from '@mui/material';
 import {
     Email,
@@ -36,7 +37,6 @@ const LoginForm = ({ onLoginSuccess }) => {
             ...prev,
             [name]: value
         }));
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -70,100 +70,39 @@ const LoginForm = ({ onLoginSuccess }) => {
         }
 
         setLoading(true);
+        console.log('🔐 Tentative de connexion avec:', formData.email);
 
         try {
-            // Simulate API call - replace with actual authentication
             const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    login: formData.email,
+                    email: formData.email,
                     password: formData.password
                 })
             });
 
+            console.log('📡 Réponse du serveur:', response.status);
+
             if (response.ok) {
                 const userData = await response.json();
-
-                // Store user data in localStorage
-                localStorage.setItem('user', JSON.stringify(userData));
-                localStorage.setItem('token', userData.token);
+                console.log('✅ Données utilisateur reçues:', userData);
 
                 toast.success(`Bienvenue ${userData.prenom} ${userData.nom} !`);
 
-                // Navigate based on role
                 if (onLoginSuccess) {
                     onLoginSuccess(userData);
-                } else {
-                    // Default navigation based on role
-                    switch (userData.role) {
-                        case 'ADMINISTRATEUR':
-                        case 'ADMIN':
-                            navigate('/admin/dashboard');
-                            break;
-                        case 'MEDECIN':
-                            navigate('/doctor/patients');
-                            break;
-                        case 'SECRETAIRE':
-                            navigate('/secretary/rendezvous');
-                            break;
-                        default:
-                            navigate('/home');
-                    }
                 }
             } else {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({ message: 'Erreur de connexion' }));
+                console.error('❌ Erreur:', errorData);
                 toast.error(errorData.message || 'Email ou mot de passe incorrect');
             }
         } catch (error) {
-            console.error('Login error:', error);
-            toast.error('Erreur de connexion au serveur');
-
-            // For demo purposes, simulate login with different roles
-            if (formData.email === 'admin@cabinet.com' && formData.password === 'admin123') {
-                const mockUser = {
-                    id: 1,
-                    nom: 'Admin',
-                    prenom: 'System',
-                    email: formData.email,
-                    role: 'ADMINISTRATEUR',
-                    token: 'mock-token-admin'
-                };
-                localStorage.setItem('user', JSON.stringify(mockUser));
-                localStorage.setItem('token', mockUser.token);
-                toast.success('Connexion réussie (mode démo)');
-                navigate('/admin/dashboard');
-            } else if (formData.email === 'medecin@cabinet.com' && formData.password === 'medecin123') {
-                const mockUser = {
-                    id: 2,
-                    nom: 'Martin',
-                    prenom: 'Dr. Jean',
-                    email: formData.email,
-                    role: 'MEDECIN',
-                    token: 'mock-token-medecin'
-                };
-                localStorage.setItem('user', JSON.stringify(mockUser));
-                localStorage.setItem('token', mockUser.token);
-                toast.success('Connexion réussie (mode démo)');
-                navigate('/doctor/patients');
-            } else if (formData.email === 'secretaire@cabinet.com' && formData.password === 'secretaire123') {
-                const mockUser = {
-                    id: 3,
-                    nom: 'Dubois',
-                    prenom: 'Marie',
-                    email: formData.email,
-                    role: 'SECRETAIRE',
-                    token: 'mock-token-secretaire'
-                };
-                localStorage.setItem('user', JSON.stringify(mockUser));
-                localStorage.setItem('token', mockUser.token);
-                toast.success('Connexion réussie (mode démo)');
-                navigate('/secretary/rendezvous');
-            } else {
-                toast.error('Email ou mot de passe incorrect');
-            }
+            console.error('❌ Erreur de connexion:', error);
+            toast.error('Impossible de se connecter au serveur. Vérifiez que le backend est démarré.');
         } finally {
             setLoading(false);
         }
@@ -208,6 +147,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                             onChange={handleChange}
                             error={!!errors.email}
                             helperText={errors.email}
+                            disabled={loading}
                             sx={{ mb: 2 }}
                             InputProps={{
                                 startAdornment: (
@@ -227,6 +167,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                             onChange={handleChange}
                             error={!!errors.password}
                             helperText={errors.password}
+                            disabled={loading}
                             sx={{ mb: 3 }}
                             InputProps={{
                                 startAdornment: (
@@ -239,6 +180,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                                         <IconButton
                                             onClick={togglePasswordVisibility}
                                             edge="end"
+                                            disabled={loading}
                                         >
                                             {showPassword ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
@@ -260,7 +202,14 @@ const LoginForm = ({ onLoginSuccess }) => {
                                 mb: 2
                             }}
                         >
-                            {loading ? 'Connexion en cours...' : 'Se connecter'}
+                            {loading ? (
+                                <>
+                                    <CircularProgress size={24} sx={{ mr: 1, color: 'white' }} />
+                                    Connexion en cours...
+                                </>
+                            ) : (
+                                'Se connecter'
+                            )}
                         </Button>
 
                         <Box sx={{ textAlign: 'center', mb: 2 }}>
@@ -268,6 +217,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                                 Pas encore de compte ?{' '}
                                 <Button
                                     onClick={() => navigate('/register')}
+                                    disabled={loading}
                                     sx={{ textTransform: 'none', p: 0, minHeight: 'auto' }}
                                 >
                                     S'inscrire
@@ -275,19 +225,18 @@ const LoginForm = ({ onLoginSuccess }) => {
                             </Typography>
                         </Box>
 
-                        {/* Demo credentials */}
                         <Alert severity="info" sx={{ mt: 3 }}>
                             <Typography variant="subtitle2" gutterBottom>
-                                Comptes de démonstration :
+                                🔑 Comptes de test disponibles :
+                            </Typography>
+                            <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                                <strong>Admin:</strong> admin@cabinet.com / password123
                             </Typography>
                             <Typography variant="caption" display="block">
-                                • Admin: admin@cabinet.com / admin123
+                                <strong>Médecin:</strong> medecin1@cabinet.com / password123
                             </Typography>
                             <Typography variant="caption" display="block">
-                                • Médecin: medecin@cabinet.com / medecin123
-                            </Typography>
-                            <Typography variant="caption" display="block">
-                                • Secrétaire: secretaire@cabinet.com / secretaire123
+                                <strong>Secrétaire:</strong> secretaire@cabinet.com / password123
                             </Typography>
                         </Alert>
                     </Box>
